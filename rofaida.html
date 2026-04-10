@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rofaida Khalid — Clothing Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fdf8f5;
+    --surface: #fff;
+    --card: #ffffff;
+    --coral: #ff6b6b;
+    --pink: #ff8fab;
+    --violet: #c77dff;
+    --gold: #ffbe0b;
+    --teal: #06d6a0;
+    --blue: #4cc9f0;
+    --text: #1a1a2e;
+    --muted: #7a7a9a;
+    --border: rgba(26,26,46,0.08);
+    --light: #f5f0ff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* DECORATIVE BLOBS */
+  .blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .blob-1 { width: 500px; height: 500px; background: var(--pink); top: -100px; right: -100px; }
+  .blob-2 { width: 400px; height: 400px; background: var(--violet); bottom: 20%; left: -150px; }
+  .blob-3 { width: 300px; height: 300px; background: var(--gold); bottom: -50px; right: 20%; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(253,248,245,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-logo span {
+    background: linear-gradient(135deg, var(--coral), var(--violet));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  nav ul { display: flex; gap: 2.5rem; list-style: none; }
+  nav ul a {
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    font-weight: 400;
+  }
+  nav ul a:hover { color: var(--coral); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+  }
+
+  .hero-content {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 5rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    background: linear-gradient(135deg, rgba(255,107,107,0.12), rgba(199,125,255,0.12));
+    border: 1px solid rgba(255,107,107,0.2);
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--coral);
+    margin-bottom: 1.8rem;
+    letter-spacing: 0.05em;
+  }
+
+  .badge-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--teal);
+    animation: blink 2s infinite;
+  }
+
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5.5vw, 5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--coral) 0%, var(--violet) 50%, var(--blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-bio {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 500px;
+    margin-bottom: 2.5rem;
+    line-height: 1.85;
+  }
+
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 2rem;
+    background: linear-gradient(135deg, var(--coral), var(--violet));
+    color: #fff;
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.25s;
+    box-shadow: 0 8px 24px rgba(255,107,107,0.3);
+  }
+
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(255,107,107,0.4); }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 2rem;
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    transition: all 0.25s;
+    background: var(--surface);
+  }
+
+  .btn-outline:hover { border-color: var(--coral); color: var(--coral); transform: translateY(-2px); }
+
+  /* PROFILE CARD */
+  .profile-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(199,125,255,0.1);
+    overflow: hidden;
+  }
+
+  .profile-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 80px;
+    background: linear-gradient(135deg, var(--pink), var(--violet));
+  }
+
+  .avatar-wrap {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--coral), var(--violet), var(--blue));
+    padding: 3px;
+    position: relative;
+    z-index: 1;
+    margin-top: 30px;
+  }
+
+  .avatar-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    font-style: italic;
+    background: linear-gradient(135deg, var(--coral), var(--violet));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    border: 4px solid var(--surface);
+    background-color: var(--surface);
+  }
+
+  .profile-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    text-align: center;
+  }
+
+  .profile-title {
+    font-size: 0.8rem;
+    color: var(--coral);
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .profile-location {
+    font-size: 0.83rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .profile-links {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.6rem;
+  }
+
+  .profile-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 1rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.84rem;
+    transition: all 0.2s;
+  }
+
+  .profile-link:hover { border-color: var(--coral); color: var(--coral); background: rgba(255,107,107,0.04); }
+
+  .profile-link-icon {
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+  }
+
+  /* SECTION */
+  section {
+    padding: 5rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 1rem;
+    border-radius: 100px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    font-weight: 400;
+  }
+
+  .chip-coral { background: rgba(255,107,107,0.1); color: var(--coral); border: 1px solid rgba(255,107,107,0.2); }
+  .chip-violet { background: rgba(199,125,255,0.1); color: var(--violet); border: 1px solid rgba(199,125,255,0.2); }
+  .chip-teal { background: rgba(6,214,160,0.1); color: #059669; border: 1px solid rgba(6,214,160,0.25); }
+  .chip-gold { background: rgba(255,190,11,0.1); color: #b45309; border: 1px solid rgba(255,190,11,0.3); }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.8rem;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .skill-card-1::before { background: linear-gradient(90deg, var(--coral), var(--pink)); }
+  .skill-card-2::before { background: linear-gradient(90deg, var(--violet), var(--blue)); }
+  .skill-card-3::before { background: linear-gradient(90deg, var(--teal), var(--blue)); }
+  .skill-card-4::before { background: linear-gradient(90deg, var(--gold), var(--coral)); }
+
+  .skill-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+
+  .skill-card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .skill-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    color: var(--text);
+  }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+
+  .skill-tag {
+    padding: 0.25rem 0.8rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.8rem;
+    color: var(--text);
+  }
+
+  /* PROJECTS */
+  .proj-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .proj-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.25s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+
+  .proj-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(199,125,255,0.15); }
+
+  .proj-banner {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .proj-banner-1 { background: linear-gradient(135deg, #ffb3c1, #ffd6a5, #caffbf); }
+  .proj-banner-2 { background: linear-gradient(135deg, #c8b6ff, #b8c0ff, #9bf6ff); }
+
+  .proj-body { padding: 1.8rem; }
+
+  .proj-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+  }
+
+  .proj-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 1.2rem;
+  }
+
+  .proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+  .proj-tag {
+    padding: 0.22rem 0.75rem;
+    border-radius: 100px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+  }
+
+  .tag-coral { background: rgba(255,107,107,0.1); color: var(--coral); }
+  .tag-violet { background: rgba(199,125,255,0.1); color: var(--violet); }
+  .tag-teal { background: rgba(6,214,160,0.12); color: #059669; }
+  .tag-gold { background: rgba(255,190,11,0.12); color: #b45309; }
+  .tag-blue { background: rgba(76,201,240,0.12); color: #0369a1; }
+
+  /* EXPERIENCE */
+  .exp-timeline { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 3px 1fr;
+    gap: 0 1.8rem;
+    align-items: start;
+  }
+
+  .exp-line-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding-top: 4px;
+  }
+
+  .exp-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--coral), var(--violet));
+    flex-shrink: 0;
+    margin-left: -5.5px;
+    box-shadow: 0 0 0 3px rgba(255,107,107,0.15);
+  }
+
+  .exp-stem {
+    width: 2px;
+    flex: 1;
+    min-height: 40px;
+    background: linear-gradient(to bottom, rgba(255,107,107,0.3), transparent);
+    margin-top: 4px;
+  }
+
+  .exp-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.8rem;
+    margin-bottom: 0;
+    transition: border-color 0.2s;
+  }
+
+  .exp-card:hover { border-color: rgba(255,107,107,0.3); }
+
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+
+  .exp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  .exp-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.73rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .exp-company {
+    font-size: 0.83rem;
+    color: var(--coral);
+    margin-bottom: 0.8rem;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.02em;
+  }
+
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+
+  .exp-bullets li {
+    font-size: 0.88rem;
+    color: var(--muted);
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .exp-bullets li::before { content: '✦'; position: absolute; left: 0; color: var(--pink); font-size: 0.6rem; top: 5px; }
+
+  /* CONTACT */
+  .contact-strip {
+    background: linear-gradient(135deg, var(--coral), var(--violet), var(--blue));
+    border-radius: 28px;
+    padding: 3.5rem;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-strip::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .contact-strip h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    font-style: italic;
+    margin-bottom: 0.8rem;
+    position: relative;
+  }
+
+  .contact-strip p {
+    opacity: 0.85;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    position: relative;
+  }
+
+  .contact-cards {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .contact-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 100px;
+    color: white;
+    text-decoration: none;
+    font-size: 0.88rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.2s;
+  }
+
+  .contact-pill:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 3rem 4rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.82rem;
+    color: var(--muted);
+    position: relative;
+    z-index: 1;
+  }
+
+  footer strong {
+    background: linear-gradient(135deg, var(--coral), var(--violet));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* FADE IN */
+  .fade-in { opacity: 0; transform: translateY(22px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: #e0c8f0; border-radius: 3px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    nav ul { gap: 1.2rem; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .hero-content { grid-template-columns: 1fr; gap: 3rem; }
+    .profile-card { max-width: 360px; margin: 0 auto; }
+    section { padding: 4rem 1.5rem; }
+    .proj-grid { grid-template-columns: 1fr; }
+    .contact-strip { padding: 2.5rem 1.5rem; }
+  }
+
+  @media (max-width: 600px) {
+    nav ul { display: none; }
+    h1 { font-size: 2.6rem; }
+    .contact-strip h2 { font-size: 1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<nav>
+  <a class="nav-logo" href="#"><span>Rofaida</span></a>
+  <ul>
+    <li><a href="#about">about</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="about">
+  <div class="hero-content">
+    <div>
+      <div class="hero-badge">
+        <div class="badge-dot"></div>
+        open to collaborations
+      </div>
+      <h1>
+        Creative<br>
+        <em>Clothing Designer</em><br>
+        &amp; Dreamer.
+      </h1>
+      <p class="hero-bio">
+        Passionate about turning ideas into wearable art. I design original clothing graphics for global print-on-demand platforms, combining creativity, trend awareness, and storytelling into every piece I create.
+      </p>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn-primary">See My Work ✦</a>
+        <a href="#contact" class="btn-outline">Let's Connect</a>
+      </div>
+    </div>
+
+    <div class="profile-card">
+      <div class="avatar-wrap">
+        <div class="avatar-inner">RK</div>
+      </div>
+      <div class="profile-name">Rofaida Khalid</div>
+      <div class="profile-title">Clothing Designer · Print-on-Demand</div>
+      <div class="profile-location">&#128205; Cairo, Egypt</div>
+      <div class="profile-links">
+        <a href="tel:+201289717222" class="profile-link">
+          <div class="profile-link-icon" style="background:rgba(255,107,107,0.1);">&#128222;</div>
+          <span>+20 12 8971 7222</span>
+        </a>
+        <a href="mailto:" class="profile-link">
+          <div class="profile-link-icon" style="background:rgba(199,125,255,0.1);">&#9993;</div>
+          <span>Send Email</span>
+        </a>
+        <div class="profile-link" style="cursor:default;">
+          <div class="profile-link-icon" style="background:rgba(6,214,160,0.1);">&#127979;</div>
+          <span>Benha University · 2022–2026</span>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--muted);">
+        <div class="badge-dot"></div>
+        Available for freelance
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header fade-in">
+    <span class="section-chip chip-coral">01</span>
+    <h2 class="section-title">Skills</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card skill-card-1 fade-in">
+      <div class="skill-card-icon">&#127912;</div>
+      <div class="skill-card-title">Design</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Clothing Design</span>
+        <span class="skill-tag">Graphic Design</span>
+        <span class="skill-tag">Adobe Photoshop</span>
+        <span class="skill-tag">Canva</span>
+        <span class="skill-tag">Visual Storytelling</span>
+      </div>
+    </div>
+    <div class="skill-card skill-card-2 fade-in">
+      <div class="skill-card-icon">&#128722;</div>
+      <div class="skill-card-title">E-commerce & Business</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Print-on-Demand</span>
+        <span class="skill-tag">Printful</span>
+        <span class="skill-tag">Product Listings</span>
+        <span class="skill-tag">Branding</span>
+        <span class="skill-tag">E-commerce</span>
+      </div>
+    </div>
+    <div class="skill-card skill-card-3 fade-in">
+      <div class="skill-card-icon">&#128202;</div>
+      <div class="skill-card-title">Strategy & Trends</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Trend Research</span>
+        <span class="skill-tag">Audience Targeting</span>
+        <span class="skill-tag">Market Analysis</span>
+        <span class="skill-tag">Content Planning</span>
+      </div>
+    </div>
+    <div class="skill-card skill-card-4 fade-in">
+      <div class="skill-card-icon">&#127775;</div>
+      <div class="skill-card-title">Soft Skills</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Creativity</span>
+        <span class="skill-tag">Time Management</span>
+        <span class="skill-tag">Communication</span>
+        <span class="skill-tag">Quick Learner</span>
+        <span class="skill-tag">Adaptability</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header fade-in">
+    <span class="section-chip chip-violet">02</span>
+    <h2 class="section-title">Projects</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="proj-grid">
+    <div class="proj-card fade-in">
+      <div class="proj-banner proj-banner-1">&#128248;</div>
+      <div class="proj-body">
+        <div class="proj-name">Online Clothing Store (Print-on-Demand)</div>
+        <p class="proj-desc">Created and launched a personal clothing brand from scratch. Designed T-shirts and apparel targeting specific audiences, handled branding, logo design, and complete product identity. Published on global platforms with curated listings and visuals.</p>
+        <div class="proj-tags">
+          <span class="proj-tag tag-coral">Clothing Design</span>
+          <span class="proj-tag tag-violet">Branding</span>
+          <span class="proj-tag tag-teal">Printful</span>
+          <span class="proj-tag tag-gold">E-commerce</span>
+          <span class="proj-tag tag-blue">Canva</span>
+        </div>
+      </div>
+    </div>
+    <div class="proj-card fade-in">
+      <div class="proj-banner proj-banner-2">&#10024;</div>
+      <div class="proj-body">
+        <div class="proj-name">Trend-Driven Graphic Collections</div>
+        <p class="proj-desc">Researched current fashion trends to create marketable clothing graphics. Developed collections that resonate with target audiences, adapting designs based on customer preferences and performance insights across multiple product lines.</p>
+        <div class="proj-tags">
+          <span class="proj-tag tag-violet">Photoshop</span>
+          <span class="proj-tag tag-coral">Trend Research</span>
+          <span class="proj-tag tag-teal">Visual Design</span>
+          <span class="proj-tag tag-gold">Product Strategy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header fade-in">
+    <span class="section-chip chip-teal">03</span>
+    <h2 class="section-title">Experience & Education</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="exp-timeline">
+    <div class="exp-item fade-in">
+      <div class="exp-line-wrap">
+        <div class="exp-dot"></div>
+        <div class="exp-stem"></div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-title">Clothing Designer (Print-on-Demand)</div>
+          <div class="exp-date">Self-employed · Remote</div>
+        </div>
+        <div class="exp-company">Freelance · Present</div>
+        <ul class="exp-bullets">
+          <li>Designed original clothing graphics and concepts for online stores</li>
+          <li>Published products on global platforms like Printful</li>
+          <li>Managed product listings, descriptions, and visual presentation</li>
+          <li>Followed fashion trends to create appealing and marketable designs</li>
+          <li>Handled customer preferences and improved designs accordingly</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-item fade-in">
+      <div class="exp-line-wrap">
+        <div class="exp-dot"></div>
+        <div class="exp-stem"></div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-title">Bachelor's Degree — Computers & AI</div>
+          <div class="exp-date">2022 – 2026</div>
+        </div>
+        <div class="exp-company">Benha University · Faculty of Computers and Artificial Intelligence</div>
+        <ul class="exp-bullets">
+          <li>Combining technical knowledge with creative design skills</li>
+          <li>Passionate about the intersection of technology and fashion</li>
+          <li>Interested in digital business and online freelancing</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="padding-bottom: 2rem;">
+  <div class="section-header fade-in">
+    <span class="section-chip chip-gold">04</span>
+    <h2 class="section-title">Get In Touch</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-strip fade-in">
+    <h2>Let's create something beautiful.</h2>
+    <p>Have a project in mind or want to collaborate? I'd love to hear from you!</p>
+    <div class="contact-cards">
+      <a href="tel:+201289717222" class="contact-pill">
+        &#128222; +20 12 8971 7222
+      </a>
+      <a href="mailto:" class="contact-pill">
+        &#9993; Send Email
+      </a>
+      <div class="contact-pill" style="cursor:default;">
+        &#128205; Cairo, Egypt
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Designed with &#10084; by <strong>Rofaida Khalid</strong> · 2025</p>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 90);
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
